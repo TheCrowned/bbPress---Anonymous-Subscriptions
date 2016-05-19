@@ -3,7 +3,7 @@
 Plugin Name: bbPress - Anonymous Subscriptions
 Plugin URL: http://www.thecrowned.org/bbpress-anonymous-subscriptions
 Description: Allows anonymous users to subscribe to bbPress topics and receive emails notifications when new replies are posted.
-Version: 1.2
+Version: 1.3
 Author: Stefano Ottolenghi
 Author URI: http://www.thecrowned.org
 Text Domain: bbp_anonymous_subscriptions
@@ -28,7 +28,8 @@ class BBP_Anonymous_Subscriptions {
 		add_action( 'bbp_edit_reply',  array( __CLASS__, 'update_reply' ), 0, 6 );		
 
 		//Email notifications on new replies
-		add_action( 'bbp_post_notify_subscribers', array( __CLASS__, 'notify_anonymous_subscriptions' ), 10, 3 );
+		//It's needed to hook to the title filter because otherwise, if there are no registered users subscribed, emails wouldn't be sent
+		add_filter( 'bbp_subscription_mail_title', array( __CLASS__, 'notify_anonymous_subscriptions' ), 10, 3 );
 		
 		//Manage unsubscriptions
 		add_action( 'plugins_loaded', array( __CLASS__, 'unsubscribe_email' ) );
@@ -160,21 +161,14 @@ class BBP_Anonymous_Subscriptions {
 	 *
 	 * @since 1.0
 	 *
+	 * @param string $subject subject of the newly made reply
 	 * @param int $reply_id ID of the newly made reply
 	 * @param int $topic_id ID of the topic of the reply
-	 * @param int $forum_id ID of the forum of the reply
-	 * @param mixed $anonymous_data Array of anonymous user data
-	 * @param int $reply_author ID of the topic author ID
 	 *
 	 * @return bool True on success, false on failure
 	 */
-	public static function notify_anonymous_subscriptions( $reply_id = 0, $topic_id = 0, $user_ids ) { //forum_id = 0, $anonymous_data = false, $reply_author = 0 ) {
+	public static function notify_anonymous_subscriptions( $subject, $reply_id = 0, $topic_id = 0 ) {
 		
-		// Bail if subscriptions are turned off
-		if ( !bbp_is_subscriptions_active() ) {
-			return false;
-		}
-
 		/** Validation ************************************************************/
 
 		$reply_id = bbp_get_reply_id( $reply_id );
@@ -210,12 +204,6 @@ class BBP_Anonymous_Subscriptions {
 		$reply_content = strip_tags( bbp_get_reply_content( $reply_id ) );
 		$reply_url     = bbp_get_reply_url( $reply_id );
 		$blog_name     = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
-
-		// For plugins to filter titles per reply/topic/user
-		$subject = apply_filters( 'bbp_subscription_mail_title', '[' . $blog_name . '] ' . $topic_title, $reply_id, $topic_id );
-		if ( empty( $subject ) ) {
-			return;
-		}
 
 		/** Users *****************************************************************/
 
@@ -291,4 +279,3 @@ To unsubscribe from notifications for this topic, click on the following link.%4
 
 //Instantiate plugin's class
 $GLOBALS['bbp_anonymous_subscriptions'] = new BBP_Anonymous_Subscriptions();
-?>
