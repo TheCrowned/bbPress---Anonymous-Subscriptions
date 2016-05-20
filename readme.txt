@@ -25,6 +25,7 @@ See the project on [GitHub](https://github.com/TheCrowned/bbPress---Anonymous-Su
 == Changelog ==
 = 1.3 =
 * Fixed: notifications to anonymous users wouldn't be sent if no registered users were subscribed to the topic.
+* Fixed: notifications to user who created the new topic not working.
 
 = 1.2 =
 * Tweak: subscribe field checked by default.

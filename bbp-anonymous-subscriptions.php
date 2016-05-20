@@ -25,6 +25,7 @@ class BBP_Anonymous_Subscriptions {
 
 		//Save the subscription state
 		add_action( 'bbp_new_reply',  array( __CLASS__, 'update_reply' ), 0, 6 ); //hook to send email custom
+		add_action( 'bbp_new_topic',  array( __CLASS__, 'update_topic' ), 0, 4 ); //hook to send email custom
 		add_action( 'bbp_edit_reply',  array( __CLASS__, 'update_reply' ), 0, 6 );		
 
 		//Email notifications on new replies
@@ -153,6 +154,26 @@ class BBP_Anonymous_Subscriptions {
 				update_post_meta( $topic_id, '_bbp_anonymous_subscribed_emails', $subscribed_emails );
 			}
 		
+		}
+	}
+
+	/**
+	 * Stores the private state on reply creation and edit
+	 *
+	 * @since 1.3
+	 *
+	 * @param $topic_id int The ID of the topic the reply belongs to
+	 * @param $forum_id int The ID of the forum the topic belongs to
+	 * @param $anonymous_data bool Are we posting as an anonymous user?
+	 * @param $topic_author int The ID of user who created the topic
+	 *
+	 * @return void
+	 */
+	public static function update_topic( $topic_id = 0, $forum_id = 0, $anonymous_data = false, $topic_author = 0 ) {
+		if( isset( $_POST['bbp_anonymous_subscribe'] ) ) {
+			$subscribed_emails = array();
+			$subscribed_emails[] = $anonymous_data['bbp_anonymous_email'];
+			update_post_meta( $topic_id, '_bbp_anonymous_subscribed_emails', $subscribed_emails );
 		}
 	}
 
