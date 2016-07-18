@@ -6,7 +6,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: bbPress, subscriptions, emails, notifications
 Requires at least: 3.2
 Tested up to: 4.5
-Stable Tag: 1.3.1
+Stable Tag: 1.3.4
 
 A simple plugin to allow anonymous bbPress users to subscribe to topics and get email notifications when a new reply is posted.
 
@@ -23,6 +23,15 @@ See the project on [GitHub](https://github.com/TheCrowned/bbPress---Anonymous-Su
 2. A new "Notify me of follow-up replies via email" checkbox will be available in the reply form for anonymous users.
 
 == Changelog ==
+= 1.3.4 =
+* Fixed: using same message for all subscribed users, resulting in invalid unsubscribe link.
+
+= 1.3.3 =
+* New: added pot file.
+
+= 1.3.2 =
+* Tweak: changed localization slug.
+
 = 1.3.1 =
 * Fixed: anonymous notifications breaking subscribed users ones.
 

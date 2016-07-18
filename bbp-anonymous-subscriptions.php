@@ -3,10 +3,10 @@
 Plugin Name: bbPress - Anonymous Subscriptions
 Plugin URL: http://www.thecrowned.org/bbpress-anonymous-subscriptions
 Description: Allows anonymous users to subscribe to bbPress topics and receive emails notifications when new replies are posted.
-Version: 1.3.1
+Version: 1.3.4
 Author: Stefano Ottolenghi
 Author URI: http://www.thecrowned.org
-Text Domain: bbp_anonymous_subscriptions
+Text Domain: bbp-anonymous-subscriptions
 Domain Path: lang
 */
 
@@ -44,7 +44,7 @@ class BBP_Anonymous_Subscriptions {
 	 * @return void
 	 */
 	public static function textdomain() {
-		load_plugin_textdomain( 'bbp_anonymous_subscriptions', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
+		load_plugin_textdomain( 'bbp-anonymous-subscriptions', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
 	}
 	
 	/**
@@ -78,16 +78,16 @@ class BBP_Anonymous_Subscriptions {
 			//Delete post_meta if there are no more subscribed emails
 			if( ! empty( $subscribed_emails ) ) {
 				if( ! update_post_meta( $topic_id, '_bbp_anonymous_subscribed_emails', $subscribed_emails ) )
-					die( __( 'There was an error while unsubscribing!', 'bbp_anonymous_subscriptions' ) );
+					die( __( 'There was an error while unsubscribing!', 'bbp-anonymous-subscriptions' ) );
 			} else {
 				if( ! delete_post_meta( $topic_id, '_bbp_anonymous_subscribed_emails' ) )
-					die( __( 'There was an error while unsubscribing!', 'bbp_anonymous_subscriptions' ) );
+					die( __( 'There was an error while unsubscribing!', 'bbp-anonymous-subscriptions' ) );
 			}
 			
-			die( __( 'Successfully unsubscribed!', 'bbp_anonymous_subscriptions' ) );
+			die( __( 'Successfully unsubscribed!', 'bbp-anonymous-subscriptions' ) );
 		
 		} else {
-			die( __( 'You do not seem subscribed to this topic, not with this email at least!', 'bbp_anonymous_subscriptions' ) );
+			die( __( 'You do not seem subscribed to this topic, not with this email at least!', 'bbp-anonymous-subscriptions' ) );
 		}
 		
 	}
@@ -106,7 +106,7 @@ class BBP_Anonymous_Subscriptions {
 ?>
 		<p>
 			<input name="bbp_anonymous_subscribe" id="bbp_anonymous_subscribe" type="checkbox" value="1" tabindex="<?php bbp_tab_index(); ?>" checked="checked" />
-			<label for="bbp_anonymous_subscribe"><?php _e( 'Notify me of follow-up replies via email', 'bbp_anonymous_subscriptions' ); ?></label>
+			<label for="bbp_anonymous_subscribe"><?php _e( 'Notify me of follow-up replies via email', 'bbp-anonymous-subscriptions' ); ?></label>
 		</p>
 
 			<?php } /*else {
@@ -115,7 +115,7 @@ class BBP_Anonymous_Subscriptions {
 
 				<p>
 				<input name="bbp_anonymous_subscribe" id="bbp_anonymous_subscribe" type="checkbox" <?php echo self::is_user_subscribed( get_the_author_meta( 'ID' ) ); ?> tabindex="<?php bbp_tab_index(); ?>" />
-				<label for="bbp_anonymous_subscribe"><?php _e( 'Notify author of follow-up replies via email.', 'bbp_anonymous_subscriptions' ); ?></label>
+				<label for="bbp_anonymous_subscribe"><?php _e( 'Notify author of follow-up replies via email.', 'bbp-anonymous-subscriptions' ); ?></label>
 				</p>
 				
 			<?php } ?>
@@ -179,6 +179,8 @@ class BBP_Anonymous_Subscriptions {
 
 	/**
 	 * Sends notification emails for new replies to subscribed topics to anonymous users.
+	 *
+	 * Derived from bbpress/includes/common/functions.php (bbp_notify_topic_subscribers()).
 	 *
 	 * @since 1.0
 	 *
@@ -267,7 +269,7 @@ Post Link: %3$s
 
 You are receiving this email because you subscribed to a forum topic.
 
-To unsubscribe from notifications for this topic, click on the following link.%4$s', 'bbp_anonymous_subscriptions' ),
+To unsubscribe from notifications for this topic, click on the following link.%4$s', 'bbp-anonymous-subscriptions' ),
 
 				$reply_author_name,
 				$reply_content,
@@ -282,17 +284,17 @@ To unsubscribe from notifications for this topic, click on the following link.%4
 			}
 
 			// Get email address of subscribed user
-			$headers[] = 'Bcc: ' . $user_email;
+			//$headers[] = 'Bcc: ' . $user_email;
+		
+			/** Send it ***************************************************************/
+
+			// Custom headers
+			$headers  = apply_filters( 'bbp_subscription_mail_headers', $headers  );
+			$to_email = apply_filters( 'bbp_subscription_to_email',     $no_reply );
+
+			// Send notification email
+			wp_mail( $user_email, $subject, $message, $headers );
 		}
-
-		/** Send it ***************************************************************/
-
-		// Custom headers
-		$headers  = apply_filters( 'bbp_subscription_mail_headers', $headers  );
-		$to_email = apply_filters( 'bbp_subscription_to_email',     $no_reply );
-
-		// Send notification email
-		wp_mail( $to_email, $subject, $message, $headers );
 
 		return $subject;
 	}

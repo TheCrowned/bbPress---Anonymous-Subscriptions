@@ -1,0 +1,66 @@
+# Copyright (C) 2016 bbPress - Anonymous Subscriptions
+# This file is distributed under the same license as the bbPress - Anonymous Subscriptions package.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: bbPress - Anonymous Subscriptions\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bbp-anonymous-"
+"subscriptions\n"
+"POT-Creation-Date: 2016-07-05 10:05+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#: bbp-anonymous-subscriptions.php:81 bbp-anonymous-subscriptions.php:84
+msgid "There was an error while unsubscribing!"
+msgstr ""
+
+#: bbp-anonymous-subscriptions.php:87
+msgid "Successfully unsubscribed!"
+msgstr ""
+
+#: bbp-anonymous-subscriptions.php:90
+msgid "You do not seem subscribed to this topic, not with this email at least!"
+msgstr ""
+
+#: bbp-anonymous-subscriptions.php:109
+msgid "Notify me of follow-up replies via email"
+msgstr ""
+
+#: bbp-anonymous-subscriptions.php:260
+msgid ""
+"%1$s wrote:\r\n"
+"\r\n"
+"%2$s\r\n"
+"\r\n"
+"Post Link: %3$s\r\n"
+"\r\n"
+"-----------\r\n"
+"\r\n"
+"You are receiving this email because you subscribed to a forum topic.\r\n"
+"\r\n"
+"To unsubscribe from notifications for this topic, click on the following "
+"link.%4$s"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "bbPress - Anonymous Subscriptions"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Allows anonymous users to subscribe to bbPress topics and receive emails "
+"notifications when new replies are posted."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Stefano Ottolenghi"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.thecrowned.org"
+msgstr ""
