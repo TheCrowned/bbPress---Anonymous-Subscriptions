@@ -1,0 +1,73 @@
+# Copyright (C) 2016 bbPress - Anonymous Subscriptions
+# This file is distributed under the same license as the bbPress - Anonymous Subscriptions package.
+msgid ""
+msgstr ""
+"Project-Id-Version: bbPress - Anonymous Subscriptions\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bbp-anonymous-"
+"subscriptions\n"
+"POT-Creation-Date: 2017-01-14 08:34+0100\n"
+"PO-Revision-Date: 2017-01-18 13:10+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nb_NO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: bbp-anonymous-subscriptions.php:81 bbp-anonymous-subscriptions.php:84
+msgid "There was an error while unsubscribing!"
+msgstr "Det oppstod en feil under avslutning av abonnementet!"
+
+#: bbp-anonymous-subscriptions.php:87
+msgid "Successfully unsubscribed!"
+msgstr "Du har avsluttet abonnementet!"
+
+#: bbp-anonymous-subscriptions.php:90
+msgid "You do not seem subscribed to this topic, not with this email at least!"
+msgstr ""
+"Det ser ikke ut som om du abonnerer på dette emnet, ikke med denne e-mailen "
+"i det minste!"
+
+#: bbp-anonymous-subscriptions.php:109
+msgid "Notify me of follow-up replies via email"
+msgstr "Varsle meg om oppfølgingssvar via e-post"
+
+#: bbp-anonymous-subscriptions.php:262
+#, php-format
+msgid ""
+"DO NOT REPLY to this email, this is an automated notification. Instead, use "
+"the link at the bottom to go to the topic.\r\n"
+"\r\n"
+"%1$s wrote:\r\n"
+"\r\n"
+"%2$s\r\n"
+"\r\n"
+"Post Link: %3$s\r\n"
+"\r\n"
+"-----------\r\n"
+"\r\n"
+"You are receiving this email because you subscribed to a forum topic.\r\n"
+"\r\n"
+"To unsubscribe from notifications for this topic, click on the following "
+"link.%4$s"
+msgstr ""
+"IKKE SVAR på denne e-posten, dette er en automatisk notifikasjon. Bruk "
+"heller lenken nederst for å gå til emnet.\r\n"
+"\r\n"
+"%1$s skrev:\r\n"
+"\r\n"
+"%2$s\r\n"
+"\r\n"
+"Post Lenke: %3$s\r\n"
+"\r\n"
+"-----------\r\n"
+"\r\n"
+"Du mottar denne e-posten fordi du abonnerer på et forum emne.\r\n"
+"\r\n"
+"Hvis du ikke lenger vil ha varslinger for dette emnet, kan du klikke på "
+"følgende lenke.%4$s"
