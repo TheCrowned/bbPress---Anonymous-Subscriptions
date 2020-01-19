@@ -3,7 +3,7 @@
 Plugin Name: bbPress - Anonymous Subscriptions
 Plugin URL: http://www.thecrowned.org/bbpress-anonymous-subscriptions
 Description: Allows anonymous users to subscribe to bbPress topics and receive emails notifications when new replies are posted.
-Version: 1.3.6.2
+Version: 1.3.7
 Author: Stefano Ottolenghi
 Author URI: http://www.thecrowned.org
 Text Domain: bbp-anonymous-subscriptions
@@ -18,7 +18,7 @@ class BBP_Anonymous_Subscriptions {
 	function __construct() {
 		//Load the plugin translation files
 		add_action( 'init', array( __CLASS__, 'textdomain' ) );
-		
+
 		//Show the "Notify me" checkbox
 		add_action( 'bbp_theme_before_reply_form_submit_wrapper', array( __CLASS__, 'checkbox' ) );
 		add_action( 'bbp_theme_before_topic_form_submit_wrapper', array( __CLASS__, 'checkbox' ) );
@@ -26,16 +26,16 @@ class BBP_Anonymous_Subscriptions {
 		//Save the subscription state
 		add_action( 'bbp_new_reply',  array( __CLASS__, 'update_reply' ), 0, 6 ); //hook to send email custom
 		add_action( 'bbp_new_topic',  array( __CLASS__, 'update_topic' ), 0, 4 ); //hook to send email custom
-		add_action( 'bbp_edit_reply',  array( __CLASS__, 'update_reply' ), 0, 6 );		
+		add_action( 'bbp_edit_reply',  array( __CLASS__, 'update_reply' ), 0, 6 );
 
 		//Email notifications on new replies
 		//It's needed to hook to the title filter because otherwise, if there are no registered users subscribed, emails wouldn't be sent
 		add_filter( 'bbp_subscription_mail_title', array( __CLASS__, 'notify_anonymous_subscriptions' ), 10, 3 );
-		
+
 		//Manage unsubscriptions
 		add_action( 'plugins_loaded', array( __CLASS__, 'unsubscribe_email' ) );
 	}
-	
+
 	/**
 	 * Load the plugin's text domain
 	 *
@@ -46,35 +46,35 @@ class BBP_Anonymous_Subscriptions {
 	public static function textdomain() {
 		load_plugin_textdomain( 'bbp-anonymous-subscriptions', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
 	}
-	
+
 	/**
 	 * Manages unsubscriptions.
-	 * 
+	 *
 	 * Users get here through a link in the notification email. It's all tied to GET parameters.
-	 * 
+	 *
 	 * @since	1.0
-	 * 
+	 *
 	 * @return void
-	 */ 
+	 */
 	public static function unsubscribe_email() {
 		if( ! isset( $_GET['bbp_anonymous_unsubscribe'] ) OR ! isset( $_GET['user_email'] ) OR ! isset( $_GET['topic_id'] ) )
 			return;
-		
+
 		$unsubscribe_email = urldecode( trim( $_GET['user_email'] ) );
 		if( ! is_email( $unsubscribe_email ) )
 			return;
-		
+
 		$topic_id = (int) $_GET['topic_id'];
-		
+
 		$subscribed_emails = get_post_meta( $topic_id, '_bbp_anonymous_subscribed_emails', true );
 		if( empty( $subscribed_emails ) )
 			return;
-		
+
 		//Look for email to be unsubscribed
 		$index_delete = array_search( $unsubscribe_email, $subscribed_emails );
 		if( $index_delete !== false ) {
 			unset( $subscribed_emails[$index_delete] );
-			
+
 			//Delete post_meta if there are no more subscribed emails
 			if( ! empty( $subscribed_emails ) ) {
 				if( ! update_post_meta( $topic_id, '_bbp_anonymous_subscribed_emails', $subscribed_emails ) )
@@ -83,13 +83,13 @@ class BBP_Anonymous_Subscriptions {
 				if( ! delete_post_meta( $topic_id, '_bbp_anonymous_subscribed_emails' ) )
 					die( __( 'There was an error while unsubscribing!', 'bbp-anonymous-subscriptions' ) );
 			}
-			
+
 			die( __( 'Successfully unsubscribed!', 'bbp-anonymous-subscriptions' ) );
-		
+
 		} else {
 			die( __( 'You do not seem subscribed to this topic, not with this email at least!', 'bbp-anonymous-subscriptions' ) );
 		}
-		
+
 	}
 
 	/**
@@ -101,7 +101,7 @@ class BBP_Anonymous_Subscriptions {
 	 * @return void
 	 */
 	public static function checkbox() {
-	
+
 		if( ! is_user_logged_in() AND ! bbp_is_reply_edit() ) {
 ?>
 		<p>
@@ -110,17 +110,17 @@ class BBP_Anonymous_Subscriptions {
 		</p>
 
 			<?php } /*else {
-			
-			if( bbp_is_reply_edit() ) { 
+
+			if( bbp_is_reply_edit() ) {
 
 				<p>
 				<input name="bbp_anonymous_subscribe" id="bbp_anonymous_subscribe" type="checkbox" <?php echo self::is_user_subscribed( get_the_author_meta( 'ID' ) ); ?> tabindex="<?php bbp_tab_index(); ?>" />
 				<label for="bbp_anonymous_subscribe"><?php _e( 'Notify author of follow-up replies via email.', 'bbp-anonymous-subscriptions' ); ?></label>
 				</p>
-				
+
 			<?php } ?>
 
-<?php 
+<?php
 		}*/
 	}
 
@@ -147,13 +147,13 @@ class BBP_Anonymous_Subscriptions {
 			$subscribed_emails = get_post_meta( $topic_id, '_bbp_anonymous_subscribed_emails', true );
 			if( empty( $subscribed_emails ) )
 				$subscribed_emails = array();
-				
+
 			if( ! in_array( $anonymous_data['bbp_anonymous_email'], $subscribed_emails ) ) {
 				$subscribed_emails[] = $anonymous_data['bbp_anonymous_email'];
-				
+
 				update_post_meta( $topic_id, '_bbp_anonymous_subscribed_emails', $subscribed_emails );
 			}
-		
+
 		}
 	}
 
@@ -191,7 +191,7 @@ class BBP_Anonymous_Subscriptions {
 	 * @return bool True on success, false on failure
 	 */
 	public static function notify_anonymous_subscriptions( $subject, $reply_id = 0, $topic_id = 0 ) {
-		
+
 		/** Validation ************************************************************/
 
 		$reply_id = bbp_get_reply_id( $reply_id );
@@ -287,7 +287,7 @@ To unsubscribe from notifications for this topic, click on the following link.%4
 
 			// Get email address of subscribed user
 			//$headers[] = 'Bcc: ' . $user_email;
-		
+
 			/** Send it ***************************************************************/
 
 			// Custom headers
