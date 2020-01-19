@@ -30,7 +30,7 @@ class BBP_Anonymous_Subscriptions {
 
 		//Email notifications on new replies
 		//It's needed to hook to the title filter because otherwise, if there are no registered users subscribed, emails wouldn't be sent
-		add_filter( 'bbp_subscription_mail_title', array( __CLASS__, 'notify_anonymous_subscriptions' ), 10, 3 );
+		add_filter( 'bbp_topic_subscription_user_ids', array( __CLASS__, 'notify_anonymous_subscriptions' ), 10, 3 );
 
 		//Manage unsubscriptions
 		add_action( 'plugins_loaded', array( __CLASS__, 'unsubscribe_email' ) );
@@ -190,7 +190,7 @@ class BBP_Anonymous_Subscriptions {
 	 *
 	 * @return bool True on success, false on failure
 	 */
-	public static function notify_anonymous_subscriptions( $subject, $reply_id = 0, $topic_id = 0 ) {
+	public static function notify_anonymous_subscriptions( $user_ids, $reply_id, $topic_id ) {
 
 		/** Validation ************************************************************/
 
@@ -201,14 +201,14 @@ class BBP_Anonymous_Subscriptions {
 
 		// Bail if topic is not published
 		if ( !bbp_is_topic_published( $topic_id ) ) {
-			return $subject;
+			return $user_ids;
 		}
 
 		/** Reply *****************************************************************/
 
 		// Bail if reply is not published
 		if ( !bbp_is_reply_published( $reply_id ) ) {
-			return $subject;
+			return $user_ids;
 		}
 
 		// Poster name
@@ -219,8 +219,9 @@ class BBP_Anonymous_Subscriptions {
 
 		// Remove filters from reply content and topic title to prevent content
 		// from being encoded with HTML entities, wrapped in paragraph tags, etc...
-		remove_all_filters( 'bbp_get_reply_content' );
-		remove_all_filters( 'bbp_get_topic_title'   );
+		bbp_remove_all_filters( 'bbp_get_reply_content' );
+		bbp_remove_all_filters( 'bbp_get_topic_title' );
+		bbp_remove_all_filters( 'the_title' );
 
 		// Strip tags from text and setup mail data
 		$topic_title   = strip_tags( bbp_get_topic_title( $topic_id ) );
@@ -242,7 +243,7 @@ class BBP_Anonymous_Subscriptions {
 		// Get topic anonymous subscribers and bail if empty
 		$user_emails = get_post_meta( $topic_id, '_bbp_anonymous_subscribed_emails', true );
 		if ( empty( $user_emails ) )
-			return $subject;
+			return $user_ids;
 
 		// Loop through users
 		foreach ( (array) $user_emails as $user_email ) {
@@ -282,7 +283,12 @@ To unsubscribe from notifications for this topic, click on the following link.%4
 
 			$message = apply_filters( 'bbp_subscription_mail_message', $message, $reply_id, $topic_id );
 			if ( empty( $message ) ) {
-				return;
+				return $user_ids;
+			}
+
+			$subject = apply_filters( 'bbp_subscription_mail_title', '[' . $blog_name . '] ' . $topic_title, $reply_id, $topic_id );
+			if ( empty( $subject ) ) {
+				return $user_ids;
 			}
 
 			// Get email address of subscribed user
@@ -298,7 +304,7 @@ To unsubscribe from notifications for this topic, click on the following link.%4
 			wp_mail( $user_email, $subject, $message, $headers );
 		}
 
-		return $subject;
+		return $user_ids;
 	}
 }
 
