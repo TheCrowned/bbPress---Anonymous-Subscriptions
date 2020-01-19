@@ -3,7 +3,7 @@
 Plugin Name: bbPress - Anonymous Subscriptions
 Plugin URL: http://www.thecrowned.org/bbpress-anonymous-subscriptions
 Description: Allows anonymous users to subscribe to bbPress topics and receive emails notifications when new replies are posted.
-Version: 1.3.5
+Version: 1.3.6.2
 Author: Stefano Ottolenghi
 Author URI: http://www.thecrowned.org
 Text Domain: bbp-anonymous-subscriptions

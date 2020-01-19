@@ -1,38 +1,39 @@
 # Copyright (C) 2016 bbPress - Anonymous Subscriptions
 # This file is distributed under the same license as the bbPress - Anonymous Subscriptions package.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: bbPress - Anonymous Subscriptions\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bbp-anonymous-"
 "subscriptions\n"
-"POT-Creation-Date: 2017-04-24 09:57+0200\n"
+"POT-Creation-Date: 2017-10-16 15:36+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"PO-Revision-Date: 2017-10-16 15:37+0200\n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.0.1\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: he_IL\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: bbp-anonymous-subscriptions.php:81 bbp-anonymous-subscriptions.php:84
 msgid "There was an error while unsubscribing!"
-msgstr ""
+msgstr "ביטול המעקב נכשל!"
 
 #: bbp-anonymous-subscriptions.php:87
 msgid "Successfully unsubscribed!"
-msgstr ""
+msgstr "מעקב בוטל בהצלחה!"
 
 #: bbp-anonymous-subscriptions.php:90
 msgid "You do not seem subscribed to this topic, not with this email at least!"
-msgstr ""
+msgstr "נראה שאתם לא עוקבים אחרי נושא זה, לפחות לא עם האימייל הזה!"
 
 #: bbp-anonymous-subscriptions.php:109
 msgid "Notify me of follow-up replies via email"
-msgstr ""
+msgstr "הודיעו לי על תגובות חדשות באמצעות מייל"
 
 #: bbp-anonymous-subscriptions.php:262
 #, php-format
@@ -53,3 +54,17 @@ msgid ""
 "To unsubscribe from notifications for this topic, click on the following "
 "link.%4$s"
 msgstr ""
+"על המייל הזה אין אפשרות לענות, זאת הודעה אוטומטית. כדי לענות לתגובה ניתן "
+"להשתמש בקישור בסוף המייל על מנת להגיע לדיון באתר.\n"
+"\n"
+"%1$s ענה:\n"
+"\n"
+"%2$s\n"
+"\n"
+"קישור אל התגובה בפורום\n"
+"%3$s\n"
+"-----------\n"
+"\n"
+"האימייל נשלך אליך כיון שנרשמת לנושא בפורום.\n"
+"\n"
+":כדי לא לקבל יותר עדכונים לגבי הנושא לחץ על הקישור הבא %4$s"
