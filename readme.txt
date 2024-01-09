@@ -1,12 +1,12 @@
 === bbPress - Anonymous Subscriptions ===
-Author URI: http://www.thecrowned.org
-Plugin URI: http://www.thecrowned.org/bbpress-anonymous-subscriptions
+Author URI: https://www.thecrowned.org
+Plugin URI: https://www.thecrowned.org/bbpress-anonymous-subscriptions
 Contributors: Ste_95
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8Y79DM6K78NJG
 Tags: bbPress, subscriptions, emails, notifications
 Requires at least: 3.2
-Tested up to: 5.3
-Stable Tag: 1.3.7
+Tested up to: 6.4
+Stable Tag: 1.3.8
 
 A simple plugin to allow anonymous bbPress users to subscribe to topics and get email notifications when a new reply is posted.
 
@@ -25,11 +25,14 @@ Available in English, Italian, German, Norwegian, Ebrew, Serbian.
 2. A new "Notify me of follow-up replies via email" checkbox will be available in the reply form for anonymous users.
 
 == Changelog ==
+= 1.3.8 =
+* Fix: urlencode emails in unsubscribe link.
+
 = 1.3.7 =
 * Fix: notifications not going out anymore with bbPress >= 2.6 if there were no (regular) subscribed users.
 * Tweak: revised German localization (Toengel).
 
-= 1.3.6.2 = 
+= 1.3.6.2 =
 * New: added Serbian and Ebrew localizations (Eran).
 
 = 1.3.6.1 =
@@ -38,7 +41,7 @@ Available in English, Italian, German, Norwegian, Ebrew, Serbian.
 = 1.3.6 =
 * New: added Norwegian (Torbjørn Kristensen) and Italian (Stefano Ottolenghi) localizations.
 
-= 1.3.5 = 
+= 1.3.5 =
 * Tweak: updated email text, warning users NOT to reply to automated emails.
 
 = 1.3.4 =
