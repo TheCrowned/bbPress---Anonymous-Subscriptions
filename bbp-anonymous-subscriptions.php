@@ -84,7 +84,7 @@ class BBP_Anonymous_Subscriptions {
 					wp_die( __( 'There was an error while unsubscribing!', 'bbp-anonymous-subscriptions' ) );
 			}
 
-			wp_die( __( 'Successfully unsubscribed!', 'bbp-anonymous-subscriptions' ) );
+			wp_die( __( 'Successfully unsubscribed!', 'bbp-anonymous-subscriptions' ), __( 'Successfully unsubscribed!', 'bbp-anonymous-subscriptions' ) );
 
 		} else {
 			wp_die( __( 'You do not seem subscribed to this topic, not with this email at least!', 'bbp-anonymous-subscriptions' ) );
