@@ -62,13 +62,13 @@ class BBP_Anonymous_Subscriptions {
 
 		$unsubscribe_email = trim( $_GET['user_email'] );
 		if( ! is_email( $unsubscribe_email ) )
-			return;
+			wp_die( __( 'Invalid email.', 'bbp-anonymous-subscriptions' ) );
 
 		$topic_id = (int) $_GET['topic_id'];
 
 		$subscribed_emails = get_post_meta( $topic_id, '_bbp_anonymous_subscribed_emails', true );
 		if( empty( $subscribed_emails ) )
-			return;
+			wp_die( __( 'You do not seem subscribed to this topic, not with this email at least!', 'bbp-anonymous-subscriptions' ) );
 
 		//Look for email to be unsubscribed
 		$index_delete = array_search( $unsubscribe_email, $subscribed_emails );
@@ -78,16 +78,16 @@ class BBP_Anonymous_Subscriptions {
 			//Delete post_meta if there are no more subscribed emails
 			if( ! empty( $subscribed_emails ) ) {
 				if( ! update_post_meta( $topic_id, '_bbp_anonymous_subscribed_emails', $subscribed_emails ) )
-					die( __( 'There was an error while unsubscribing!', 'bbp-anonymous-subscriptions' ) );
+					wp_die( __( 'There was an error while unsubscribing!', 'bbp-anonymous-subscriptions' ) );
 			} else {
 				if( ! delete_post_meta( $topic_id, '_bbp_anonymous_subscribed_emails' ) )
-					die( __( 'There was an error while unsubscribing!', 'bbp-anonymous-subscriptions' ) );
+					wp_die( __( 'There was an error while unsubscribing!', 'bbp-anonymous-subscriptions' ) );
 			}
 
-			die( __( 'Successfully unsubscribed!', 'bbp-anonymous-subscriptions' ) );
+			wp_die( __( 'Successfully unsubscribed!', 'bbp-anonymous-subscriptions' ) );
 
 		} else {
-			die( __( 'You do not seem subscribed to this topic, not with this email at least!', 'bbp-anonymous-subscriptions' ) );
+			wp_die( __( 'You do not seem subscribed to this topic, not with this email at least!', 'bbp-anonymous-subscriptions' ) );
 		}
 
 	}
