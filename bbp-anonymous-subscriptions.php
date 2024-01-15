@@ -60,7 +60,7 @@ class BBP_Anonymous_Subscriptions {
 		if( ! isset( $_GET['bbp_anonymous_unsubscribe'] ) OR ! isset( $_GET['user_email'] ) OR ! isset( $_GET['topic_id'] ) )
 			return;
 
-		$unsubscribe_email = urldecode( trim( $_GET['user_email'] ) );
+		$unsubscribe_email = trim( $_GET['user_email'] );
 		if( ! is_email( $unsubscribe_email ) )
 			return;
 
